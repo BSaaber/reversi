@@ -1,7 +1,8 @@
 public enum CellType {
     WHITE('W'),
     BLACK('B'),
-    NONE(' ');
+    NONE(' '),
+    NEXT_MOVE('.');
 
     private final Character value;
 

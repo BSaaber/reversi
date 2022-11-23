@@ -1,9 +1,7 @@
 public class CellImpl implements Cell {
-    private final Integer price;
     private CellType cellType;
 
-    public CellImpl(CellType cellType, Integer price) {
-        this.price = price;
+    public CellImpl(CellType cellType) {
         this.cellType = cellType;
     }
 
@@ -16,8 +14,4 @@ public class CellImpl implements Cell {
         this.cellType = cellType;
     }
 
-    @Override
-    public Integer getPrice() {
-        return price;
-    }
 }

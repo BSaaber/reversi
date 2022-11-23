@@ -1,7 +1,7 @@
-public class CellBuilderImpl implements CellBuilder{
+public class CellBuilderImpl implements CellBuilder {
 
     @Override
-    public Cell buildCell(CellType type, Integer price) {
-        return new CellImpl(type, price);
+    public Cell buildCell(CellType type) {
+        return new CellImpl(type);
     }
 }
