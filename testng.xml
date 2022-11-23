@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="My-Awesome-Suite" >
+    <test name="First-Test" >
+        <classes>
+            <class name="com.maxem.FieldImplTest" />
+            <class name="com.maxem.FieldControllerImplTest"/>
+        </classes>
+    </test>
+</suite>
