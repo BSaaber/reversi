@@ -1,6 +1,6 @@
 package com.maxem.players.computer.price_field;
 
-public interface FieldPriceMaskBuilder {
+public interface FieldPriceMaskFactory {
 
     FieldPriceMask buildFieldPriceMask(int size);
 }

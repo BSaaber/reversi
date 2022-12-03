@@ -2,6 +2,6 @@ package com.maxem.fieldutils.analyzer;
 
 import com.maxem.field.Field;
 
-public interface FieldAnalyzerBuilder {
+public interface FieldAnalyzerFactory {
     FieldAnalyzer buildFieldAnalyzer(Field field);
 }

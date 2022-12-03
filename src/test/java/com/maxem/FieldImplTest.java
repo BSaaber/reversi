@@ -1,6 +1,6 @@
 package com.maxem;
 
-import com.maxem.field.cell.CellBuilderImpl;
+import com.maxem.field.cell.CellFactoryImpl;
 import com.maxem.field.cell.CellType;
 import com.maxem.field.FieldImpl;
 import org.testng.Assert;
@@ -11,7 +11,7 @@ public class FieldImplTest {
 
     @DataProvider
     public Object[][] FieldInitializer() {
-        return new Object[][] {{new FieldImpl(8, new CellBuilderImpl()), 8}};
+        return new Object[][] {{new FieldImpl(8, new CellFactoryImpl()), 8}};
     }
 
     @Test(dataProvider = "FieldInitializer")

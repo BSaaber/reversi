@@ -1,6 +1,6 @@
 package com.maxem.field.cell;
 
-public class CellBuilderImpl implements CellBuilder {
+public class CellFactoryImpl implements CellFactory {
 
     @Override
     public Cell buildCell(CellType type) {

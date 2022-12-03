@@ -2,7 +2,7 @@ package com.maxem.game.printer;
 
 public class PrinterFactoryImpl implements PrinterFactory {
     @Override
-    public Printer createPrinter() {
+    public Printer buildPrinter() {
         return new PrinterImpl();
     }
 }

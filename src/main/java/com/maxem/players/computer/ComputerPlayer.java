@@ -3,7 +3,7 @@ package com.maxem.players.computer;
 import com.maxem.field.Field;
 import com.maxem.field.PrintableField;
 import com.maxem.fieldutils.analyzer.FieldAnalyzer;
-import com.maxem.fieldutils.analyzer.FieldAnalyzerBuilder;
+import com.maxem.fieldutils.analyzer.FieldAnalyzerFactory;
 import com.maxem.game.PlayerType;
 import com.maxem.players.AbstractPlayer;
 import com.maxem.players.computer.price_field.FieldPriceMask;
@@ -15,19 +15,19 @@ public abstract class ComputerPlayer extends AbstractPlayer {
     protected PrintableField field;
     protected Field fieldCopy;
     protected FieldAnalyzer fieldAnalyzer;
-    protected FieldAnalyzerBuilder fieldAnalyzerBuilder;
+    protected FieldAnalyzerFactory fieldAnalyzerFactory;
 
     FieldPriceMask fieldPriceMask;
-    public ComputerPlayer(PlayerType playerType, PrintableField field, FieldAnalyzerBuilder builder, FieldPriceMask fieldPriceMask) {
+    public ComputerPlayer(PlayerType playerType, PrintableField field, FieldAnalyzerFactory builder, FieldPriceMask fieldPriceMask) {
         super("компьютер", playerType);
         this.field = field;
-        this.fieldAnalyzerBuilder = builder;
+        this.fieldAnalyzerFactory = builder;
         this.fieldPriceMask = fieldPriceMask;
     }
 
     protected void setUpCopy() {
         this.fieldCopy = field.copy();
-        this.fieldAnalyzer = fieldAnalyzerBuilder.buildFieldAnalyzer(fieldCopy);
+        this.fieldAnalyzer = fieldAnalyzerFactory.buildFieldAnalyzer(fieldCopy);
     }
 
     protected double priceEstimation(ArrayList<Pair<Integer, Integer>> closingCellsIndexes, int moveI, int moveJ) {

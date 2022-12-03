@@ -2,25 +2,24 @@ package com.maxem.players.computer;
 
 import com.maxem.field.PrintableField;
 import com.maxem.fieldutils.controller.FieldController;
-import com.maxem.fieldutils.analyzer.FieldAnalyzerBuilder;
-import com.maxem.fieldutils.controller.FieldControllerBuilder;
-import com.maxem.game.GameMode;
+import com.maxem.fieldutils.analyzer.FieldAnalyzerFactory;
+import com.maxem.fieldutils.controller.FieldControllerFactory;
 import com.maxem.game.PlayerType;
 import com.maxem.players.computer.price_field.FieldPriceMask;
 
 public class ComputerMasterPlayer extends ComputerPlayer {
-    FieldControllerBuilder fieldControllerBuilder;
+    FieldControllerFactory fieldControllerFactory;
     FieldController fieldController;
 
-    public ComputerMasterPlayer(PlayerType playerType, PrintableField field, FieldAnalyzerBuilder builder, FieldPriceMask fieldPriceMask, FieldControllerBuilder fieldControllerBuilder) {
+    public ComputerMasterPlayer(PlayerType playerType, PrintableField field, FieldAnalyzerFactory builder, FieldPriceMask fieldPriceMask, FieldControllerFactory fieldControllerFactory) {
         super(playerType, field, builder, fieldPriceMask);
-        this.fieldControllerBuilder = fieldControllerBuilder;
+        this.fieldControllerFactory = fieldControllerFactory;
     }
 
     @Override
     protected void setUpCopy() {
         super.setUpCopy();
-        fieldController = fieldControllerBuilder.buildFieldController(fieldAnalyzer);
+        fieldController = fieldControllerFactory.buildFieldController(fieldAnalyzer);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.maxem;
 
 import com.maxem.field.Field;
-import com.maxem.field.cell.CellBuilderImpl;
+import com.maxem.field.cell.CellFactoryImpl;
 import com.maxem.field.FieldImpl;
 import com.maxem.field.cell.CellType;
 import com.maxem.fieldutils.*;
@@ -25,7 +25,7 @@ public class FieldControllerImplTest {
 
     @BeforeClass
     public void build() {
-        field = new FieldImpl(8, new CellBuilderImpl());
+        field = new FieldImpl(8, new CellFactoryImpl());
         fieldChecker = new FieldChecker(field);
     }
 

@@ -1,11 +1,11 @@
 package com.maxem.field;
 
-import com.maxem.field.cell.PrintableCell;
+import com.maxem.field.cell.ImmutableCell;
 
 public interface PrintableField {
     public Integer getFieldSize();
 
-    public PrintableCell getPrintableCell(Integer i, Integer j);
+    public ImmutableCell getPrintableCell(Integer i, Integer j);
 
     Field copy();
 }

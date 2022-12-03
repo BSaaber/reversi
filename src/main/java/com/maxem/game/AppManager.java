@@ -1,17 +1,17 @@
 package com.maxem.game;
 
-import com.maxem.field.cell.CellBuilder;
-import com.maxem.field.cell.CellBuilderImpl;
+import com.maxem.field.cell.CellFactory;
+import com.maxem.field.cell.CellFactoryImpl;
 import com.maxem.field.Field;
 import com.maxem.field.FieldImpl;
 import com.maxem.fieldutils.*;
 import com.maxem.fieldutils.analyzer.FieldAnalyzer;
-import com.maxem.fieldutils.analyzer.FieldAnalyzerBuilder;
-import com.maxem.fieldutils.analyzer.FieldAnalyzerBuilderImpl;
+import com.maxem.fieldutils.analyzer.FieldAnalyzerFactory;
+import com.maxem.fieldutils.analyzer.FieldAnalyzerFactoryImpl;
 import com.maxem.fieldutils.analyzer.FieldAnalyzerImpl;
 import com.maxem.fieldutils.controller.FieldController;
-import com.maxem.fieldutils.controller.FieldControllerBuilder;
-import com.maxem.fieldutils.controller.FieldControllerBuilderImpl;
+import com.maxem.fieldutils.controller.FieldControllerFactory;
+import com.maxem.fieldutils.controller.FieldControllerFactoryImpl;
 import com.maxem.fieldutils.controller.FieldControllerImpl;
 import com.maxem.game.printer.Printer;
 import com.maxem.game.printer.PrinterFactory;
@@ -20,8 +20,8 @@ import com.maxem.players.computer.ComputerBeginnerPlayer;
 import com.maxem.players.computer.ComputerMasterPlayer;
 import com.maxem.players.HumanPlayer;
 import com.maxem.players.Player;
-import com.maxem.players.computer.price_field.FieldPriceMaskBuilder;
-import com.maxem.players.computer.price_field.FieldPriceMaskBuilderImpl;
+import com.maxem.players.computer.price_field.FieldPriceMaskFactory;
+import com.maxem.players.computer.price_field.FieldPriceMaskFactoryImpl;
 import com.maxem.players.account.PlayerAccount;
 import com.maxem.players.account.PlayerAccountFactory;
 import com.maxem.players.account.PlayerAccountFactoryImpl;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class AppManager {
-    CellBuilder cellBuilder;
+    CellFactory cellFactory;
 
     Field field;
     FieldAnalyzer fieldAnalyzer;
@@ -44,13 +44,13 @@ public class AppManager {
     Scanner scanner;
     BufferedReader br;
 
-    FieldAnalyzerBuilder fieldAnalyzerBuilder;
+    FieldAnalyzerFactory fieldAnalyzerFactory;
 
     GameHistory gameHistory;
 
-    FieldPriceMaskBuilder fieldPriceMaskBuilder;
+    FieldPriceMaskFactory fieldPriceMaskFactory;
 
-    FieldControllerBuilder fieldControllerBuilder;
+    FieldControllerFactory fieldControllerFactory;
 
     PlayerAccountFactory playerAccountFactory;
 
@@ -65,13 +65,13 @@ public class AppManager {
     public AppManager() {
         scanner = new Scanner(System.in);
         br = new BufferedReader(new InputStreamReader(System.in));
-        cellBuilder = new CellBuilderImpl();
-        fieldAnalyzerBuilder = new FieldAnalyzerBuilderImpl();
-        fieldPriceMaskBuilder = new FieldPriceMaskBuilderImpl();
-        fieldControllerBuilder = new FieldControllerBuilderImpl();
+        cellFactory = new CellFactoryImpl();
+        fieldAnalyzerFactory = new FieldAnalyzerFactoryImpl();
+        fieldPriceMaskFactory = new FieldPriceMaskFactoryImpl();
+        fieldControllerFactory = new FieldControllerFactoryImpl();
         playerAccountFactory = new PlayerAccountFactoryImpl();
         printerFactory = new PrinterFactoryImpl();
-        printer = printerFactory.createPrinter();
+        printer = printerFactory.buildPrinter();
         createComputerAccounts();
     }
 
@@ -141,11 +141,11 @@ public class AppManager {
     }
 
     private Player buildBeginnerPlayer(PlayerType playerType) {
-        return new ComputerBeginnerPlayer(playerType, field, fieldAnalyzerBuilder, fieldPriceMaskBuilder.buildFieldPriceMask(field.getFieldSize()));
+        return new ComputerBeginnerPlayer(playerType, field, fieldAnalyzerFactory, fieldPriceMaskFactory.buildFieldPriceMask(field.getFieldSize()));
     }
 
     private Player buildMasterPlayer(PlayerType playerType) {
-        return new ComputerMasterPlayer(playerType, field, fieldAnalyzerBuilder, fieldPriceMaskBuilder.buildFieldPriceMask(field.getFieldSize()), fieldControllerBuilder);
+        return new ComputerMasterPlayer(playerType, field, fieldAnalyzerFactory, fieldPriceMaskFactory.buildFieldPriceMask(field.getFieldSize()), fieldControllerFactory);
     }
 
     private PlayerAccount enterPlayerAccount() throws IOException {
@@ -230,7 +230,7 @@ public class AppManager {
     }
 
     private void buildEnvironment() {
-        field = new FieldImpl(8, cellBuilder);
+        field = new FieldImpl(8, cellFactory);
         fieldAnalyzer = new FieldAnalyzerImpl(field);
         gameHistory = new GameHistoryImpl(field);
         fieldController = new FieldControllerImpl(field, fieldAnalyzer, gameHistory);

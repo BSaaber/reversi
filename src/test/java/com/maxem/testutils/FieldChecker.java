@@ -2,15 +2,14 @@ package com.maxem.testutils;
 
 import com.maxem.field.Field;
 import com.maxem.field.FieldImpl;
-import com.maxem.field.cell.CellBuilderImpl;
-import com.maxem.field.cell.CellType;
+import com.maxem.field.cell.CellFactoryImpl;
 import org.testng.Assert;
 
 public class FieldChecker {
     Field field, testField;
     public FieldChecker(Field field) {
         this.field = field;
-        this.testField = new FieldImpl(8, new CellBuilderImpl());
+        this.testField = new FieldImpl(8, new CellFactoryImpl());
     }
 
     public void checkField(TestCell[] expected) {

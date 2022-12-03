@@ -1,19 +1,17 @@
 package com.maxem.field;
 
 import com.maxem.field.cell.Cell;
-import com.maxem.field.cell.CellBuilder;
+import com.maxem.field.cell.CellFactory;
 import com.maxem.field.cell.CellType;
-import com.maxem.field.cell.PrintableCell;
-
-import java.util.Objects;
+import com.maxem.field.cell.ImmutableCell;
 
 public class FieldImpl implements Field {
     private Cell[][] cells;
     
-    CellBuilder cellBuilder;
+    CellFactory cellFactory;
 
-    public FieldImpl(Integer fieldSize, CellBuilder cellBuilder) {
-        this.cellBuilder = cellBuilder;
+    public FieldImpl(Integer fieldSize, CellFactory cellFactory) {
+        this.cellFactory = cellFactory;
         if (fieldSize < 4) {
             throw new RuntimeException("field size is too small");
         }
@@ -24,7 +22,7 @@ public class FieldImpl implements Field {
 
         for (int i = 0; i < fieldSize; ++i) {
             for (int j = 0; j < fieldSize; j++) {
-                cells[i][j] = cellBuilder.buildCell(CellType.NONE);
+                cells[i][j] = cellFactory.buildCell(CellType.NONE);
             }
         }
     }
@@ -35,7 +33,7 @@ public class FieldImpl implements Field {
     }
 
     @Override
-    public PrintableCell getPrintableCell(Integer i, Integer j) {
+    public ImmutableCell getPrintableCell(Integer i, Integer j) {
         return cells[i][j];
     }
 
@@ -46,7 +44,7 @@ public class FieldImpl implements Field {
 
     @Override
     public Field copy() {
-        Field ret = new FieldImpl(cells.length, cellBuilder);
+        Field ret = new FieldImpl(cells.length, cellFactory);
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells.length; j++) {
                 ret.getCell(i, j).setCellType(cells[i][j].getCellType());

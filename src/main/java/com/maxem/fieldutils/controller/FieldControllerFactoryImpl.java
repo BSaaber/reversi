@@ -5,7 +5,7 @@ import com.maxem.fieldutils.GameHistoryImpl;
 import com.maxem.fieldutils.analyzer.FieldAnalyzer;
 import com.maxem.fieldutils.analyzer.FieldAnalyzerImpl;
 
-public class FieldControllerBuilderImpl implements FieldControllerBuilder {
+public class FieldControllerFactoryImpl implements FieldControllerFactory {
     @Override
     public FieldController buildFieldController(Field field) {
         return new FieldControllerImpl(field, new FieldAnalyzerImpl(field), new GameHistoryImpl(field));
