@@ -5,64 +5,44 @@ import com.maxem.field.cell.CellBuilderImpl;
 import com.maxem.field.FieldImpl;
 import com.maxem.field.cell.CellType;
 import com.maxem.fieldutils.*;
+import com.maxem.fieldutils.analyzer.FieldAnalyzer;
+import com.maxem.fieldutils.analyzer.FieldAnalyzerImpl;
+import com.maxem.fieldutils.controller.FieldControllerImpl;
 import com.maxem.game.PlayerType;
-import kotlin.Pair;
+import com.maxem.testutils.FieldChecker;
+import com.maxem.testutils.TestCell;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class FieldControllerImplTest {
-
-    private class TestCell {
-        int i;
-        int j;
-        CellType cellType;
-        TestCell(int i, int j, CellType cellType) {
-            this.i = i;
-            this.j = j;
-            this.cellType = cellType;
-        }
-    }
     Field field;
     FieldAnalyzer fieldAnalyzer;
     FieldControllerImpl fieldController;
 
-    Field testField;
+    GameHistory gameHistory;
+
+    FieldChecker fieldChecker;
+
+    @BeforeClass
+    public void build() {
+        field = new FieldImpl(8, new CellBuilderImpl());
+        fieldChecker = new FieldChecker(field);
+    }
 
     @BeforeMethod
-    public void setUpController() {
-        field = new FieldImpl(8, new CellBuilderImpl());
+    public void setUp() {
+        field.clear();
+        fieldChecker.setUp();
         fieldAnalyzer = new FieldAnalyzerImpl(field);
-        fieldController = new FieldControllerImpl(field, fieldAnalyzer);
-        testField = new FieldImpl(8, new CellBuilderImpl());
+        gameHistory = new GameHistoryImpl(field);
+        fieldController = new FieldControllerImpl(field, fieldAnalyzer, gameHistory);
     }
-
-    private void checkField(TestCell[] expected) {
-        for (TestCell cell:
-             expected) {
-            testField.getCell(cell.i, cell.j).setCellType(cell.cellType);
-        }
-        for (int i = 0; i < testField.getFieldSize(); i++) {
-            for (int j = 0; j < testField.getFieldSize(); j++) {
-                Assert.assertEquals(field.getCell(i, j).getCellType(), testField.getCell(i, j).getCellType(), String.format("Problem: %d %d", i, j));
-            }
-        }
-    }
-
-
-    /*@DataProvider
-    public Object[][] fieldControllerInitializer() {
-
-        return new Object[][] {
-                {}
-        };
-    }*/
 
     @Test
-    public void fieldControllerCreation() {
+    public void setUpStartPosition() {
         Assert.assertEquals(fieldController.getCurrentPlayerType(), PlayerType.BLACK_PLAYER);
-        //PrinterImpl printer = new PrinterImpl(field);
-        //printer.printField();
-        checkField(new TestCell[]{
+        fieldController.setUpStartPosition();
+        fieldChecker.checkField(new TestCell[]{
                 new TestCell(4, 4, CellType.WHITE),
                 new TestCell(3, 3, CellType.WHITE),
                 new TestCell(4, 3, CellType.BLACK),
@@ -73,10 +53,4 @@ public class FieldControllerImplTest {
                 new TestCell(4, 5, CellType.NEXT_MOVE),
         });
     }
-
-    //@Test(dataProvider = "fieldControllerInitializer")
-    //public void makeSimpleMove(FieldController fieldController) {
-    //    Assert.assertEquals(fieldController.getCurrentPlayerType(), PlayerType.BLACK_PLAYER);
-    //}
-
 }

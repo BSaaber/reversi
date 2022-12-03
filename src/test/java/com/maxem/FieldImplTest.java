@@ -3,7 +3,6 @@ package com.maxem;
 import com.maxem.field.cell.CellBuilderImpl;
 import com.maxem.field.cell.CellType;
 import com.maxem.field.FieldImpl;
-import com.maxem.fieldutils.PrinterImpl;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

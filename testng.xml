@@ -4,6 +4,8 @@
         <classes>
             <class name="com.maxem.FieldImplTest" />
             <class name="com.maxem.FieldControllerImplTest"/>
+            <class name="com.maxem.CellImplTest"/>
+            <class name="com.maxem.FieldAnalyzerImplTest"/>
         </classes>
     </test>
 </suite>

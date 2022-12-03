@@ -1,6 +1,10 @@
-package com.maxem.fieldutils;
+package com.maxem.fieldutils.controller;
 
 import com.maxem.field.cell.CellType;
+import com.maxem.fieldutils.GameHistory;
+import com.maxem.fieldutils.MoveResult;
+import com.maxem.fieldutils.analyzer.FieldAnalyzer;
+import com.maxem.game.GameMode;
 import com.maxem.game.PlayerType;
 import com.maxem.field.cell.Cell;
 import com.maxem.field.Field;
@@ -8,13 +12,16 @@ import com.maxem.field.Field;
 public class FieldControllerImpl implements FieldController {
     Field field;
     FieldAnalyzer fieldAnalyzer;
+
+    GameHistory gameHistory;
     PlayerType currentPlayerType;
 
-    public FieldControllerImpl(Field field, FieldAnalyzer fieldAnalyzer) {
+    public FieldControllerImpl(Field field, FieldAnalyzer fieldAnalyzer, GameHistory gameHistory) {
         this.field = field;
         this.fieldAnalyzer = fieldAnalyzer;
         currentPlayerType = PlayerType.BLACK_PLAYER;
-        setUpStartPosition();
+        this.gameHistory = gameHistory;
+        gameHistory.appendFieldSnapshot(PlayerType.BLACK_PLAYER);
     }
 
     @Override
@@ -25,14 +32,35 @@ public class FieldControllerImpl implements FieldController {
         if (!updatePossibleMoves()) {
             currentPlayerType = currentPlayerType.another();
             if (!updatePossibleMoves()) {
+                gameHistory.appendFieldSnapshot(currentPlayerType);
                 return findWinner();
             }
         }
+        gameHistory.appendFieldSnapshot(currentPlayerType);
         return MoveResult.CONTINUE;
     }
 
     public boolean checkMoveCorrectness(Integer i, Integer j) {
         return field.getCell(i, j).getCellType() == CellType.NEXT_MOVE;
+    }
+
+    @Override
+    public boolean undoMove(int undoAmount) {
+        if (undoAmount == 1) {
+            if (gameHistory.haveOneMove()) {
+                currentPlayerType = gameHistory.cancelMove();
+                return true;
+            }
+        } else if (undoAmount == 2) {
+            if (gameHistory.haveTwoMoves()) {
+                gameHistory.cancelMove();
+                currentPlayerType = gameHistory.cancelMove();
+                return true;
+            }
+        } else {
+            throw new RuntimeException("did not expect undoing more than 2 (or less then 1) move");
+        }
+        return false;
     }
 
     private void makeMove_(Integer i, Integer j) {
@@ -97,7 +125,7 @@ public class FieldControllerImpl implements FieldController {
         }
     }
 
-    private void setUpStartPosition() {
+    public void setUpStartPosition() {
 
         for (int i = 0; i < field.getFieldSize(); i++) {
             for (int j = 0; j < field.getFieldSize(); j++) {
@@ -109,6 +137,19 @@ public class FieldControllerImpl implements FieldController {
         field.getCell(-1 + field.getFieldSize() / 2, field.getFieldSize() / 2).setCellType(CellType.BLACK);
         field.getCell( field.getFieldSize() / 2, -1 + field.getFieldSize() / 2).setCellType(CellType.BLACK);
         updatePossibleMoves();
+    }
+
+    @Override
+    public int countPoints(PlayerType playerType) {
+        int result = 0;
+        for (int i = 0; i < field.getFieldSize(); i++) {
+            for (int j = 0; j < field.getFieldSize(); j++) {
+                if (playerType.toCellType() == field.getCell(i, j).getCellType()) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
 
