@@ -1,4 +1,5 @@
 package com.maxem.fieldutils.analyzer;
+
 import com.maxem.field.cell.CellType;
 import com.maxem.game.PlayerType;
 import com.maxem.field.cell.Cell;
@@ -8,12 +9,12 @@ import kotlin.Pair;
 import java.util.ArrayList;
 
 public class FieldAnalyzerImpl implements FieldAnalyzer {
-    Field field;
+    protected Field field;
+
     public FieldAnalyzerImpl(Field field) {
         this.field = field;
     }
 
-    // reuse data
     public ArrayList<Cell> getClosingCells(Integer i, Integer j, PlayerType currentPlayerType) {
         ArrayList<Cell> cellsForChange = new ArrayList<>();
         for (Pair<Integer, Integer> pair :

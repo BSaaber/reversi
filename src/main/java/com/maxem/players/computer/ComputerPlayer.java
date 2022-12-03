@@ -18,6 +18,7 @@ public abstract class ComputerPlayer extends AbstractPlayer {
     protected FieldAnalyzerFactory fieldAnalyzerFactory;
 
     FieldPriceMask fieldPriceMask;
+
     public ComputerPlayer(PlayerType playerType, PrintableField field, FieldAnalyzerFactory builder, FieldPriceMask fieldPriceMask) {
         super("компьютер", playerType);
         this.field = field;
@@ -49,7 +50,7 @@ public abstract class ComputerPlayer extends AbstractPlayer {
         double tempMaximum;
         for (int i = 0; i < field.getFieldSize(); i++) {
             for (int j = 0; j < field.getFieldSize(); j++) {
-                tempMaximum = priceEstimation(fieldAnalyzer.getClosingCellsIndexes(i, j, playerType),i, j);
+                tempMaximum = priceEstimation(fieldAnalyzer.getClosingCellsIndexes(i, j, playerType), i, j);
                 if (tempMaximum > maximum) {
                     maximum = tempMaximum;
                     bestMoveI = i;

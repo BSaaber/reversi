@@ -6,9 +6,9 @@ import com.maxem.field.cell.CellType;
 import com.maxem.field.cell.ImmutableCell;
 
 public class FieldImpl implements Field {
-    private Cell[][] cells;
-    
-    CellFactory cellFactory;
+    protected final Cell[][] cells;
+
+    protected CellFactory cellFactory;
 
     public FieldImpl(Integer fieldSize, CellFactory cellFactory) {
         this.cellFactory = cellFactory;

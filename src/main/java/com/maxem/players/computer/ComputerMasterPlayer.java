@@ -8,8 +8,8 @@ import com.maxem.game.PlayerType;
 import com.maxem.players.computer.price_field.FieldPriceMask;
 
 public class ComputerMasterPlayer extends ComputerPlayer {
-    FieldControllerFactory fieldControllerFactory;
-    FieldController fieldController;
+    protected FieldControllerFactory fieldControllerFactory;
+    protected FieldController fieldController;
 
     public ComputerMasterPlayer(PlayerType playerType, PrintableField field, FieldAnalyzerFactory builder, FieldPriceMask fieldPriceMask, FieldControllerFactory fieldControllerFactory) {
         super(playerType, field, builder, fieldPriceMask);
@@ -30,7 +30,7 @@ public class ComputerMasterPlayer extends ComputerPlayer {
         double tempMaximum;
         for (int i = 0; i < field.getFieldSize(); i++) {
             for (int j = 0; j < field.getFieldSize(); j++) {
-                tempMaximum = priceEstimation(fieldAnalyzer.getClosingCellsIndexes(i, j, playerType),i, j);
+                tempMaximum = priceEstimation(fieldAnalyzer.getClosingCellsIndexes(i, j, playerType), i, j);
                 if (tempMaximum >= 1) {
                     fieldController.makeMove(i, j);
                     tempMaximum -= findBestMove(playerType.another()).component2();

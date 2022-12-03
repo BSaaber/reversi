@@ -7,12 +7,14 @@ import kotlin.Pair;
 import java.util.ArrayList;
 
 public class GameHistoryImpl implements GameHistory {
-    Field field;
-    ArrayList<Pair<Field, PlayerType>> snapshots;
+    protected Field field;
+    protected ArrayList<Pair<Field, PlayerType>> snapshots;
+
     public GameHistoryImpl(Field field) {
         this.field = field;
         snapshots = new ArrayList<>();
     }
+
     @Override
     public void appendFieldSnapshot(PlayerType playerType) {
         snapshots.add(new Pair<>(field.copy(), playerType));
@@ -34,6 +36,4 @@ public class GameHistoryImpl implements GameHistory {
     public boolean haveTwoMoves() {
         return snapshots.size() >= 3;
     }
-
-
 }

@@ -1,10 +1,11 @@
 package com.maxem.fieldutils;
-import com.maxem.players.Player;
+
 import com.maxem.field.PrintableField;
 import com.maxem.field.Field;
 
 public class FieldPrinterImpl implements FieldPrinter {
     PrintableField field;
+
     public FieldPrinterImpl(Field field) {
         this.field = field;
     }

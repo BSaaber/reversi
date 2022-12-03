@@ -18,7 +18,7 @@ public class PrinterImpl implements Printer {
             case WHITE_WINS -> "победил белый";
             case CONTINUE -> throw new RuntimeException("Game can not end with continue result");
         };
-        System.out.println(String.format("Игра окончена! Результат: %s", result));
+        System.out.printf("Игра окончена! Результат: %s%n", result);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class PrinterImpl implements Printer {
             case BLACK_PLAYER -> "черный";
             case WHITE_PLAYER -> "белый";
         };
-        System.out.println(String.format("Ход игрока: %s (%s)\nВведите ход в формате '<буква><цифра>' (например: 'a4')", player.getName(), color));
+        System.out.printf("Ход игрока: %s (%s)\nВведите ход в формате '<буква><цифра>' (например: 'a4')%n", player.getName(), color);
         System.out.println("Вы можете отменить предыдущий ход командой 'назад'");
     }
 
@@ -95,7 +95,7 @@ public class PrinterImpl implements Printer {
 
     @Override
     public void playerMove(Player player, int i, int j) {
-        System.out.println(String.format("Игрок %s совершил ход на клетку %c%d",
-                player.getName(), (char)('a' + j), i + 1));
+        System.out.printf("Игрок %s совершил ход на клетку %c%d%n",
+                player.getName(), (char) ('a' + j), i + 1);
     }
 }

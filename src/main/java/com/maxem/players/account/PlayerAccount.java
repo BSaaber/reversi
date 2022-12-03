@@ -2,9 +2,9 @@ package com.maxem.players.account;
 
 public interface PlayerAccount {
 
-    public String getName();
+    String getName();
 
-    public void updateBestResult(int result);
+    void updateBestResult(int result);
 
-    public Integer getBestResult();
+    Integer getBestResult();
 }

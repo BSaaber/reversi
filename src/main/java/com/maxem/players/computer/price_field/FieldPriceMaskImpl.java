@@ -4,7 +4,7 @@ import com.maxem.players.computer.price_field.price_mask_cell.PriceMaskCell;
 import com.maxem.players.computer.price_field.price_mask_cell.PriceMaskCellFactory;
 
 public class FieldPriceMaskImpl implements FieldPriceMask {
-    PriceMaskCell[][] prices;
+    protected PriceMaskCell[][] prices;
 
     public FieldPriceMaskImpl(int size, PriceMaskCellFactory priceMaskCellFactory) {
         prices = new PriceMaskCell[size][size];
@@ -34,10 +34,5 @@ public class FieldPriceMaskImpl implements FieldPriceMask {
     @Override
     public PriceMaskCell getPriceMaskCell(Integer i, Integer j) {
         return prices[i][j];
-    }
-
-    @Override
-    public int getPriceMaskSize() {
-        return prices.length;
     }
 }

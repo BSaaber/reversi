@@ -1,11 +1,10 @@
 package com.maxem;
-import com.maxem.game.AppManager;
 
-import java.io.IOException;
+import com.maxem.game.AppManager;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         AppManager appManager = new AppManager();
         while (true) {
             try {

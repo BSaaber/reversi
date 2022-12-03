@@ -7,13 +7,13 @@ import com.maxem.game.printer.Printer;
 import com.maxem.players.Player;
 
 public class GameManagerImpl implements GameManager {
-    FieldController fieldController;
-    FieldPrinter fieldPrinter;
-    Player whitePlayer;
-    Player blackPlayer;
-    GameMode gameMode;
+    protected FieldController fieldController;
+    protected FieldPrinter fieldPrinter;
+    protected Player whitePlayer;
+    protected Player blackPlayer;
+    protected GameMode gameMode;
 
-    Printer printer;
+    protected Printer printer;
 
     GameManagerImpl(FieldController fieldController, FieldPrinter fieldPrinter, Player whitePlayer, Player blackPlayer, GameMode gameMode, Printer printer) {
         this.fieldController = fieldController;
@@ -50,9 +50,8 @@ public class GameManagerImpl implements GameManager {
                                 PLAYER_VS_HARD_COMPUTER -> undoAmount = 2;
                         case EASY_COMPUTER_VS_HARD_COMPUTER,
                                 EASY_COMPUTER_VS_EASY_COMPUTER,
-                                HARD_COMPUTER_VS_HARD_COMPUTER -> {
-                            throw new RuntimeException("unexpected: computer tried to undo move. Skynet ?)");
-                        }
+                                HARD_COMPUTER_VS_HARD_COMPUTER ->
+                                throw new RuntimeException("unexpected: computer tried to undo move. Skynet ?)");
 
                     }
                     if (fieldController.undoMove(undoAmount)) {

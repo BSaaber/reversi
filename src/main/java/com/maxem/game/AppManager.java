@@ -33,34 +33,24 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class AppManager {
-    CellFactory cellFactory;
-
-    Field field;
-    FieldAnalyzer fieldAnalyzer;
-    FieldController fieldController;
-    GameManager gameManager;
-    FieldPrinter fieldPrinter;
-    Player whitePlayer, blackPlayer;
-    Scanner scanner;
-    BufferedReader br;
-
-    FieldAnalyzerFactory fieldAnalyzerFactory;
-
-    GameHistory gameHistory;
-
-    FieldPriceMaskFactory fieldPriceMaskFactory;
-
-    FieldControllerFactory fieldControllerFactory;
-
-    PlayerAccountFactory playerAccountFactory;
-
-    HashMap<String, PlayerAccount> playerAccountDB = new HashMap<>();
-
-    PlayerAccount whitePlayerAccount, blackPlayerAccount;
-
-    PrinterFactory printerFactory;
-
-    Printer printer;
+    protected CellFactory cellFactory;
+    protected Field field;
+    protected FieldAnalyzer fieldAnalyzer;
+    protected FieldController fieldController;
+    protected GameManager gameManager;
+    protected FieldPrinter fieldPrinter;
+    protected Player whitePlayer, blackPlayer;
+    protected Scanner scanner;
+    protected BufferedReader br;
+    protected FieldAnalyzerFactory fieldAnalyzerFactory;
+    protected GameHistory gameHistory;
+    protected FieldPriceMaskFactory fieldPriceMaskFactory;
+    protected FieldControllerFactory fieldControllerFactory;
+    protected PlayerAccountFactory playerAccountFactory;
+    protected HashMap<String, PlayerAccount> playerAccountDB = new HashMap<>();
+    protected PlayerAccount whitePlayerAccount, blackPlayerAccount;
+    protected PrinterFactory printerFactory;
+    protected Printer printer;
 
     public AppManager() {
         scanner = new Scanner(System.in);
@@ -75,7 +65,6 @@ public class AppManager {
         createComputerAccounts();
     }
 
-    // TODO add choosing color
     public void start() throws IOException {
         GameMode gameMode = selectGameMode();
         buildEnvironment();
@@ -110,6 +99,7 @@ public class AppManager {
         PlayerAccount anotherAccount = playerAccountFactory.buildPlayerAccount("мастер");
         playerAccountDB.put(anotherAccount.getName(), anotherAccount);
     }
+
     private GameMode selectGameMode() {
         printer.chooseGameMode();
         while (true) {
@@ -136,7 +126,7 @@ public class AppManager {
         }
     }
 
-    private Player buildHumanPlayer(String name, PlayerType playerType) throws IOException {
+    private Player buildHumanPlayer(String name, PlayerType playerType) {
         return new HumanPlayer(name, playerType);
     }
 
@@ -163,8 +153,8 @@ public class AppManager {
             scanner.skip(".*\\n");
             printer.badInputMessage();
         }
+        printer.enterPlayerNameMessage();
         if (gm == 1) {
-            printer.enterPlayerNameMessage();
             String name;
             while (true) {
                 name = br.readLine();
@@ -175,7 +165,6 @@ public class AppManager {
                 }
             }
         } else {
-            printer.enterPlayerNameMessage();
             String name = br.readLine();
             PlayerAccount playerAccount = playerAccountFactory.buildPlayerAccount(name);
             playerAccountDB.put(playerAccount.getName(), playerAccount);

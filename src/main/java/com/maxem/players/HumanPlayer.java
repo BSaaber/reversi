@@ -1,20 +1,22 @@
 package com.maxem.players;
+
 import com.maxem.game.PlayerType;
-import kotlin.Pair;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class HumanPlayer extends AbstractPlayer {
-    Scanner scanner;
+    protected Scanner scanner;
 
-    BufferedReader br;
+    protected BufferedReader br;
+
     public HumanPlayer(String name, PlayerType playerType) {
         super(name, playerType);
         scanner = new Scanner(System.in);
         br = new BufferedReader(new InputStreamReader(System.in));
     }
+
     @Override
     public ActionInfo getNextAction() {
         boolean correctInput = false;
@@ -22,7 +24,7 @@ public class HumanPlayer extends AbstractPlayer {
         while (!correctInput) {
             try {
                 String inp = br.readLine();
-                if (inp.equals("назад")){ // TODO printer get func
+                if (inp.equals("назад")) { // TODO printer get func
                     return new ActionInfo(ActionInfo.ActionType.CANCEL_MOVE);
                 }
                 if (inp.length() != 2) {

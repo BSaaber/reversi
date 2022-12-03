@@ -4,17 +4,16 @@ import com.maxem.field.cell.CellType;
 import com.maxem.fieldutils.GameHistory;
 import com.maxem.fieldutils.MoveResult;
 import com.maxem.fieldutils.analyzer.FieldAnalyzer;
-import com.maxem.game.GameMode;
 import com.maxem.game.PlayerType;
 import com.maxem.field.cell.Cell;
 import com.maxem.field.Field;
 
 public class FieldControllerImpl implements FieldController {
-    Field field;
-    FieldAnalyzer fieldAnalyzer;
+    protected Field field;
+    protected FieldAnalyzer fieldAnalyzer;
 
-    GameHistory gameHistory;
-    PlayerType currentPlayerType;
+    protected GameHistory gameHistory;
+    protected PlayerType currentPlayerType;
 
     public FieldControllerImpl(Field field, FieldAnalyzer fieldAnalyzer, GameHistory gameHistory) {
         this.field = field;
@@ -135,7 +134,7 @@ public class FieldControllerImpl implements FieldController {
         field.getCell(field.getFieldSize() / 2, field.getFieldSize() / 2).setCellType(CellType.WHITE);
         field.getCell(-1 + field.getFieldSize() / 2, -1 + field.getFieldSize() / 2).setCellType(CellType.WHITE);
         field.getCell(-1 + field.getFieldSize() / 2, field.getFieldSize() / 2).setCellType(CellType.BLACK);
-        field.getCell( field.getFieldSize() / 2, -1 + field.getFieldSize() / 2).setCellType(CellType.BLACK);
+        field.getCell(field.getFieldSize() / 2, -1 + field.getFieldSize() / 2).setCellType(CellType.BLACK);
         updatePossibleMoves();
     }
 

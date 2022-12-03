@@ -1,4 +1,5 @@
 package com.maxem.field.cell;
+
 public enum CellType {
     WHITE('W'),
     BLACK('B'),

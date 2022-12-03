@@ -1,12 +1,16 @@
 package com.maxem.players;
+
 import com.maxem.game.PlayerType;
 
 public interface Player {
-    public class ActionInfo {
+    class ActionInfo {
         int i;
         int j;
-        public enum ActionType { MOVE, CANCEL_MOVE}
+
+        public enum ActionType {MOVE, CANCEL_MOVE}
+
         ActionType actionType;
+
         public ActionInfo(ActionType actionType, int i, int j) {
             this.actionType = actionType;
             this.i = i;
@@ -29,11 +33,12 @@ public interface Player {
             return actionType;
         }
     }
-    public ActionInfo getNextAction();
 
-    public String getName();
+    ActionInfo getNextAction();
 
-    public PlayerType getPlayerType();
+    String getName();
 
-    public void setPlayerType(PlayerType playerType);
+    PlayerType getPlayerType();
+
+    void setPlayerType(PlayerType playerType);
 }
